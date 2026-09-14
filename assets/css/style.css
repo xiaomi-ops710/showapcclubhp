@@ -185,10 +185,11 @@ header.appbar{
 }
 .tab{
   display:flex; flex-direction:column; align-items:center; gap:2px;
-  padding:8px 22px; border-radius:24px; cursor:pointer;
+  padding:8px 18px; border-radius:24px; cursor:pointer;
   color:var(--md-on-surface-variant); background:transparent; border:none; font-family:inherit;
   text-decoration:none; transition:background-color .2s ease, color .2s ease;
 }
+.tab .msr{ font-size:22px; }
 .tab .label{ font-size:11px; font-weight:600; }
 .tab.active{ background:var(--md-secondary-container); color:var(--md-on-secondary-container); }
 
@@ -196,4 +197,13 @@ header.appbar{
   .hero{ padding:24px 24px 0; }
   .slider{ aspect-ratio:16/7; }
   .section, .page-head, .article-body, .article-meta{ padding-left:24px; padding-right:24px; }
+
+  /* PC・タブレット幅: タブバーはアイコン左・ラベル右の横並びに */
+  .tabbar{ bottom:24px; gap:2px; padding:6px; }
+  .tab{
+    flex-direction:row; align-items:center; gap:8px;
+    padding:10px 20px 10px 16px; border-radius:20px;
+  }
+  .tab .msr{ font-size:20px; }
+  .tab .label{ font-size:13px; }
 }
