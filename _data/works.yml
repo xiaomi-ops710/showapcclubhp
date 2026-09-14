@@ -1,0 +1,13 @@
+items:
+  - title: "自作PC組み立てゲーム"
+    description: "CPUやグラフィックボードを選んでPCを組み立てるScratch作品です。"
+    icon: "sports_esports"
+    url: "#"
+  - title: "整理券アプリ"
+    description: "文化祭の展示で使用した、番号発行・呼び出しシステムです。"
+    icon: "confirmation_number"
+    url: "#"
+  - title: "3Dプリンター作品"
+    description: "ネームプレートなど、3Dプリンターで作った作品の記録です。"
+    icon: "view_in_ar"
+    url: "#"
