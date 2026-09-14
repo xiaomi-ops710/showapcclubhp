@@ -1,0 +1,18 @@
+title: 昭和学院 パソコン部
+description: 昭和学院パソコン部の公式サイト
+baseurl: ""
+url: ""
+
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+collections:
+  works:
+    output: false
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "default"

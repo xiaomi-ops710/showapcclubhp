@@ -1,0 +1,21 @@
+---
+layout: default
+title: 制作物 - 昭和学院 パソコン部
+tab: works
+---
+<div class="page-head">
+  <h1>制作物</h1>
+  <p>部員が作ったゲームやアプリ、3Dプリンター作品などをまとめています。</p>
+</div>
+
+<section class="section">
+  <div class="grid-cards">
+    {% for item in site.data.works.items %}
+    <a class="work-card" href="{{ item.url }}">
+      <div class="work-icon"><span class="msr">{{ item.icon }}</span></div>
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.description }}</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>

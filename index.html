@@ -1,0 +1,50 @@
+---
+layout: default
+title: 昭和学院 パソコン部
+tab: home
+---
+<div class="hero">
+  <div class="slider" id="slider">
+    <div class="slider-track" id="sliderTrack">
+      {% for slide in site.data.home.slides %}
+      <img src="{{ slide.image }}" alt="{{ slide.alt }}">
+      {% endfor %}
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+</div>
+
+<div class="tagline-wrap">
+  <div class="tagline" id="tagline"></div>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <h2>制作物</h2>
+    <a class="see-all" href="{{ '/works.html' | relative_url }}">すべて見る <span class="msr" style="font-size:16px;">chevron_right</span></a>
+  </div>
+  <div class="hscroll">
+    {% for item in site.data.works.items %}
+    <a class="work-card" href="{{ item.url }}">
+      <div class="work-icon"><span class="msr">{{ item.icon }}</span></div>
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.description }}</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section" style="padding-bottom:8px;">
+  <div class="section-head">
+    <h2>ブログ</h2>
+    <a class="see-all" href="{{ '/blog.html' | relative_url }}">すべて見る <span class="msr" style="font-size:16px;">chevron_right</span></a>
+  </div>
+  <div class="blog-list">
+    {% for post in site.posts limit:3 %}
+    <a class="blog-row" href="{{ post.url | relative_url }}">
+      <span class="title">{{ post.title }}</span>
+      <span class="date">{{ post.date | date: "%Y.%m.%d" }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>

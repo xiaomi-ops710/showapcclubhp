@@ -1,0 +1,30 @@
+---
+layout: default
+title: 紹介 - 昭和学院 パソコン部
+tab: intro
+---
+<div class="page-head">
+  <h1>紹介</h1>
+</div>
+
+<section class="section">
+  <p style="font-size:15px; line-height:1.85; padding:0 4px;">{{ site.data.intro.description }}</p>
+
+  <a class="work-card" href="{{ '/works.html' | relative_url }}" style="width:auto; margin:12px 4px; flex-direction:row; align-items:center;">
+    <div class="work-icon"><span class="msr">rocket_launch</span></div>
+    <div>
+      <h3 style="margin-bottom:4px;">部員の制作物を見る</h3>
+      <p>これまでに作ったゲームやアプリを紹介しています</p>
+    </div>
+  </a>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>活動日時・場所</h2>
+  </div>
+  <div class="work-card" style="width:auto; flex-direction:row; align-items:center;">
+    <div class="work-icon"><span class="msr">event</span></div>
+    <p style="font-size:14px; margin:0;">{{ site.data.intro.schedule }}</p>
+  </div>
+</section>

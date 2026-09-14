@@ -1,0 +1,32 @@
+---
+layout: default
+title: ブログ - 昭和学院 パソコン部
+tab: blog
+---
+<div class="page-head">
+  <h1>ブログ</h1>
+</div>
+
+<div class="blog-controls">
+  <div class="chip active" data-tag="all">すべて</div>
+  {% for tag in site.tags %}
+  <div class="chip" data-tag="{{ tag[0] }}">{{ tag[0] }}</div>
+  {% endfor %}
+  <button class="sort-btn" id="sortBtn">
+    <span class="msr" style="font-size:18px;">arrow_downward</span>日付
+  </button>
+</div>
+
+<section class="section" style="padding-top:0;">
+  <div class="blog-list" id="blogList">
+    {% for post in site.posts %}
+    <a class="blog-row" href="{{ post.url | relative_url }}" data-date="{{ post.date | date_to_xmlschema }}" data-tags="{{ post.tags | join: ',' }}">
+      <span>
+        <span class="title">{{ post.title }}</span><br>
+        {% if post.tags %}<span class="tags">{{ post.tags | join: ' / ' }}</span>{% endif %}
+      </span>
+      <span class="date">{{ post.date | date: "%Y.%m.%d" }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
