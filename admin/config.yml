@@ -1,0 +1,80 @@
+# ==========================================================
+# Decap CMS 設定ファイル
+#
+# ▼ 使い方(公開前にここを書き換えてください)
+# 1. repo を「GitHubユーザー名/リポジトリ名」に書き換える
+# 2. base_url を OAuth用の仲介サーバーのURLに書き換える
+#    (Netlifyの無料プランでOAuthプロバイダを1つ用意すると簡単です。
+#     詳しい手順はREADME.mdを参照してください)
+# 3. GitHubリポジトリの Settings > Collaborators で、
+#    管理画面を使わせたい部員をリポジトリの共同編集者として招待する
+#    → これにより「部員以外は管理画面にログインできない」状態になります
+# ==========================================================
+
+backend:
+  name: github
+  repo: your-github-name/your-repo-name   # ← 書き換える
+  branch: main
+  base_url: https://your-oauth-proxy.netlify.app   # ← 書き換える
+
+publish_mode: simple
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "ブログ記事"
+    label_singular: "ブログ記事"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - { label: "公開日", name: "date", widget: "datetime" }
+      - { label: "タグ", name: "tags", widget: "list", hint: "例: 文化祭 / 活動記録 など" }
+      - { label: "本文", name: "body", widget: "markdown" }
+
+  - name: "intro"
+    label: "紹介タブ"
+    files:
+      - file: "_data/intro.yml"
+        label: "紹介ページ内容"
+        name: "intro"
+        fields:
+          - { label: "活動内容の説明", name: "description", widget: "text" }
+          - { label: "活動日時・場所", name: "schedule", widget: "string" }
+
+  - name: "works"
+    label: "制作物"
+    files:
+      - file: "_data/works.yml"
+        label: "制作物一覧"
+        name: "works"
+        fields:
+          - label: "作品一覧"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "タイトル", name: "title", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+              - { label: "アイコン(Material Symbols名)", name: "icon", widget: "string", hint: "例: sports_esports, view_in_ar など。https://fonts.google.com/icons で探せます" }
+              - { label: "リンク先URL", name: "url", widget: "string" }
+
+  - name: "home"
+    label: "ホームタブ設定"
+    files:
+      - file: "_data/home.yml"
+        label: "ホーム設定"
+        name: "home"
+        fields:
+          - label: "スライド写真"
+            name: "slides"
+            widget: "list"
+            summary: "{{alt}}"
+            fields:
+              - { label: "画像", name: "image", widget: "image" }
+              - { label: "説明(alt)", name: "alt", widget: "string" }
+          - label: "キャッチコピー(自動で切り替わる文言)"
+            name: "taglines"
+            widget: "list"
