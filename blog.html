@@ -8,6 +8,11 @@ permalink: /blog.html
   <h1>ブログ</h1>
 </div>
 
+<div class="search-box">
+  <span class="msr">search</span>
+  <input type="text" id="blogSearch" placeholder="記事を検索">
+</div>
+
 <div class="blog-controls">
   <div class="chip active" data-tag="all">すべて</div>
   {% for tag in site.tags %}
@@ -21,13 +26,24 @@ permalink: /blog.html
 <section class="section" style="padding-top:0;">
   <div class="blog-list" id="blogList">
     {% for post in site.posts %}
-    <a class="blog-row" href="{{ post.url | relative_url }}" data-date="{{ post.date | date_to_xmlschema }}" data-tags="{{ post.tags | join: ',' }}">
-      <span>
-        <span class="title">{{ post.title }}</span><br>
-        {% if post.tags %}<span class="tags">{{ post.tags | join: ' / ' }}</span>{% endif %}
-      </span>
-      <span class="date">{{ post.date | date: "%Y.%m.%d" }}</span>
+    <a class="blog-row" href="{{ post.url | relative_url }}"
+       data-date="{{ post.date | date_to_xmlschema }}"
+       data-tags="{{ post.tags | join: ',' }}"
+       data-title="{{ post.title }}">
+      <div class="date-badge">
+        <span class="day">{{ post.date | date: "%d" }}</span>{{ post.date | date: "%-m月" }}
+      </div>
+      <div style="flex:1; min-width:0;">
+        <span class="title">{{ post.title }}</span>
+        {% if post.tags %}
+        <div class="tags">
+          {% for t in post.tags %}<span class="tag-chip">{{ t }}</span>{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <span class="msr chevron">chevron_right</span>
     </a>
     {% endfor %}
   </div>
+  <p class="search-empty" id="blogEmpty" style="display:none;">該当する記事が見つかりませんでした</p>
 </section>

@@ -15,6 +15,9 @@
 <header class="appbar">
   <div class="appbar-title">昭和学院 パソコン部</div>
   <div style="display:flex; gap:4px;">
+    <a class="icon-btn" href="{{ '/search.html' | relative_url }}" aria-label="検索">
+      <span class="msr">search</span>
+    </a>
     <button class="icon-btn" id="themeToggle" aria-label="テーマ切り替え">
       <span class="msr" id="themeIcon">dark_mode</span>
     </button>
@@ -31,6 +34,7 @@
   <a class="drawer-item {% if page.tab == 'intro' %}active{% endif %}" href="{{ '/intro.html' | relative_url }}"><span class="msr">groups</span>紹介</a>
   <a class="drawer-item {% if page.tab == 'blog' %}active{% endif %}" href="{{ '/blog.html' | relative_url }}"><span class="msr">article</span>ブログ</a>
   <a class="drawer-item {% if page.tab == 'works' %}active{% endif %}" href="{{ '/works.html' | relative_url }}"><span class="msr">rocket_launch</span>制作物</a>
+  <a class="drawer-item {% if page.tab == 'events' %}active{% endif %}" href="{{ '/events.html' | relative_url }}"><span class="msr">event</span>イベント</a>
 </nav>
 
 <main>

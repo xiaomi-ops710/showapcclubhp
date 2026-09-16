@@ -79,26 +79,33 @@
     }
   }
 
-  /* ---- blog: tag filter + date sort ---- */
+  /* ---- blog: tag filter + date sort + text search ---- */
   const blogList = document.getElementById('blogList');
   if (blogList) {
     const rows = [...blogList.querySelectorAll('.blog-row')];
     const chips = [...document.querySelectorAll('.chip[data-tag]')];
     const sortBtn = document.getElementById('sortBtn');
+    const searchInput = document.getElementById('blogSearch');
+    const emptyMsg = document.getElementById('blogEmpty');
     let activeTag = 'all';
     let sortDesc = true;
 
     function render() {
-      const filtered = rows.filter(r => activeTag === 'all' || (r.dataset.tags || '').split(',').includes(activeTag));
+      const q = (searchInput && searchInput.value || '').trim().toLowerCase();
+      const filtered = rows.filter(r => {
+        const tagOk = activeTag === 'all' || (r.dataset.tags || '').split(',').includes(activeTag);
+        const text = (r.dataset.title || '') + (r.dataset.tags || '');
+        const searchOk = !q || text.toLowerCase().includes(q);
+        return tagOk && searchOk;
+      });
       filtered.sort((a, b) => {
         const da = new Date(a.dataset.date), db = new Date(b.dataset.date);
         return sortDesc ? db - da : da - db;
       });
       rows.forEach(r => r.style.display = 'none');
       filtered.forEach(r => { r.style.display = ''; blogList.appendChild(r); });
-      if (sortBtn) {
-        sortBtn.querySelector('.msr').textContent = sortDesc ? 'arrow_downward' : 'arrow_upward';
-      }
+      if (sortBtn) sortBtn.querySelector('.msr').textContent = sortDesc ? 'arrow_downward' : 'arrow_upward';
+      if (emptyMsg) emptyMsg.style.display = filtered.length ? 'none' : 'block';
     }
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
@@ -108,9 +115,53 @@
         render();
       });
     });
-    if (sortBtn) {
-      sortBtn.addEventListener('click', () => { sortDesc = !sortDesc; render(); });
-    }
+    if (sortBtn) sortBtn.addEventListener('click', () => { sortDesc = !sortDesc; render(); });
+    if (searchInput) searchInput.addEventListener('input', render);
     render();
   }
+
+  /* ---- site-wide search ---- */
+  const siteSearchInput = document.getElementById('siteSearchInput');
+  if (siteSearchInput && window.PCCLUB_INDEX) {
+    const resultsWrap = document.getElementById('searchResults');
+    const emptyMsg = document.getElementById('searchEmpty');
+    function renderResults() {
+      const q = siteSearchInput.value.trim().toLowerCase();
+      resultsWrap.innerHTML = '';
+      if (!q) { emptyMsg.style.display = 'none'; return; }
+      const hits = window.PCCLUB_INDEX.filter(item =>
+        (item.title + item.snippet + (item.tags || '')).toLowerCase().includes(q)
+      ).slice(0, 30);
+      emptyMsg.style.display = hits.length ? 'none' : 'block';
+      hits.forEach(item => {
+        const a = document.createElement('a');
+        a.className = 'search-result';
+        a.href = item.url;
+        a.innerHTML = `<span class="type-chip">${item.type}</span><h3>${item.title}</h3><p>${item.snippet}</p>`;
+        resultsWrap.appendChild(a);
+      });
+    }
+    siteSearchInput.addEventListener('input', renderResults);
+  }
+  /* ---- FAQ accordion ---- */
+  document.addEventListener('click', (e) => {
+    const q = e.target.closest('.faq-question');
+    if (q) q.parentElement.classList.toggle('open');
+  });
+
+  /* ---- ripple feedback (works on dynamically added elements too) ---- */
+  const RIPPLE_SELECTOR = '.icon-btn, .tab, .chip, .work-card, .blog-row, .search-result, .event-card, .drawer-item, .sort-btn, .faq-question, .see-all';
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest(RIPPLE_SELECTOR);
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const span = document.createElement('span');
+    span.className = 'ripple-effect';
+    span.style.width = span.style.height = size + 'px';
+    span.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    span.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    target.appendChild(span);
+    setTimeout(() => span.remove(), 550);
+  });
 })();

@@ -78,3 +78,35 @@ collections:
           - label: "キャッチコピー(自動で切り替わる文言)"
             name: "taglines"
             widget: "list"
+
+  - name: "events"
+    label: "イベント"
+    files:
+      - file: "_data/events.yml"
+        label: "イベント一覧"
+        name: "events"
+        fields:
+          - label: "イベント一覧"
+            name: "items"
+            widget: "list"
+            summary: "{{title}} ({{date}})"
+            fields:
+              - { label: "日付", name: "date", widget: "date", date_format: "YYYY-MM-DD" }
+              - { label: "タイトル", name: "title", widget: "string" }
+              - { label: "説明", name: "description", widget: "text" }
+              - { label: "場所", name: "place", widget: "string", required: false }
+
+  - name: "faq"
+    label: "よくある質問"
+    files:
+      - file: "_data/faq.yml"
+        label: "FAQ一覧"
+        name: "faq"
+        fields:
+          - label: "質問一覧"
+            name: "items"
+            widget: "list"
+            summary: "{{question}}"
+            fields:
+              - { label: "質問", name: "question", widget: "string" }
+              - { label: "回答", name: "answer", widget: "text" }

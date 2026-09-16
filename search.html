@@ -1,0 +1,47 @@
+---
+layout: default
+title: 検索 - 昭和学院 パソコン部
+tab: search
+permalink: /search.html
+---
+<div class="page-head">
+  <h1>サイト内検索</h1>
+</div>
+
+<div class="search-box">
+  <span class="msr">search</span>
+  <input type="text" id="siteSearchInput" placeholder="ブログ・制作物・紹介ページから検索" autofocus>
+</div>
+
+<div class="search-results" id="searchResults"></div>
+<p class="search-empty" id="searchEmpty" style="display:none;">該当する結果が見つかりませんでした</p>
+
+<script>
+window.PCCLUB_INDEX = [
+  {% for post in site.posts %}
+  {
+    type: "ブログ",
+    title: {{ post.title | jsonify }},
+    snippet: {{ post.excerpt | strip_html | truncate: 60 | jsonify }},
+    tags: {{ post.tags | join: ' ' | jsonify }},
+    url: {{ post.url | relative_url | jsonify }}
+  },
+  {% endfor %}
+  {% for item in site.data.works.items %}
+  {
+    type: "制作物",
+    title: {{ item.title | jsonify }},
+    snippet: {{ item.description | jsonify }},
+    tags: "",
+    url: {{ '/works.html' | relative_url | jsonify }}
+  },
+  {% endfor %}
+  {
+    type: "紹介",
+    title: "紹介 - 昭和学院 パソコン部",
+    snippet: {{ site.data.intro.description | strip_html | truncate: 60 | jsonify }},
+    tags: "",
+    url: {{ '/intro.html' | relative_url | jsonify }}
+  }
+];
+</script>

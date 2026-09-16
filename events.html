@@ -1,0 +1,27 @@
+---
+layout: default
+title: イベント - 昭和学院 パソコン部
+tab: events
+permalink: /events.html
+---
+<div class="page-head">
+  <h1>イベント</h1>
+  <p>文化祭の展示日程や説明会など、今後の予定をまとめています。</p>
+</div>
+
+<div class="event-list">
+  {% assign sorted_events = site.data.events.items | sort: "date" %}
+  {% for ev in sorted_events %}
+  <div class="event-card">
+    <div class="event-date">
+      <span class="month">{{ ev.date | date: "%-m月" }}</span>
+      <span class="day">{{ ev.date | date: "%-d" }}</span>
+    </div>
+    <div>
+      <h3>{{ ev.title }}</h3>
+      <p>{{ ev.description }}</p>
+      {% if ev.place %}<div class="place"><span class="msr">location_on</span>{{ ev.place }}</div>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

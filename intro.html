@@ -29,3 +29,20 @@ permalink: /intro.html
     <p style="font-size:14px; margin:0;">{{ site.data.intro.schedule }}</p>
   </div>
 </section>
+
+<section class="section" style="padding-bottom:24px;">
+  <div class="section-head">
+    <h2>よくある質問</h2>
+  </div>
+  <div class="faq-list">
+    {% for f in site.data.faq.items %}
+    <div class="faq-item">
+      <button class="faq-question" type="button">
+        <span>{{ f.question }}</span>
+        <span class="msr faq-icon">expand_more</span>
+      </button>
+      <div class="faq-answer"><p>{{ f.answer }}</p></div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
